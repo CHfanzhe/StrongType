@@ -1,9 +1,9 @@
 #include <iostream>
-#include <StrongType/wrapper.hpp>
+#include <StrongType/StrongType.hpp>
 #include <mutex>
 int main() {
-	StrongType::wrapper<int, struct MyTag, std::mutex> myWrapper(42);
-	myWrapper.lock();
+	StrongType::wrapper<int, struct MyTag, StrongType::inherit::non_inherit, StrongType::modifier::arithmetic> myWrapper = 1;
 	std::cout << myWrapper.value() << std::endl;
-	myWrapper.unlock();
+	std::cout << (myWrapper += 100).value() << std::endl;;
+	std::cout << myWrapper.value() << std::endl;
 }

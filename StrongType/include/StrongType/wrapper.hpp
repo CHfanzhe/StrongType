@@ -4,11 +4,13 @@
 #include <utility>
 
 namespace StrongType {
-	struct non_inherit {};
+	namespace inherit {
+		struct non_inherit {};
+	}
 
-	template<typename T, typename Tag, typename inherit = non_inherit, template<typename> class... Skills >
+	template<typename T, typename Tag, typename inherit = inherit::non_inherit, template<typename> class... Skills >
 	class wrapper : public inherit, public Skills<wrapper<T, Tag, inherit, Skills...>>... {
-	private: T _v;
+	private: T _v; friend struct wrapper_controller;
 	public:
 		using inherit::inherit;
 		constexpr wrapper() noexcept :_v() {}
@@ -25,7 +27,60 @@ namespace StrongType {
 		constexpr T&& value() && noexcept { return std::move(_v); }
 		constexpr const T&& value() const&& noexcept { return std::move(_v); }
 
-		using TagType = Tag;
-		using Type = T;
+		using _TagType = Tag;
+		using _Type = T;
+		using _Skills = std::tuple<Skills<wrapper<T, Tag, inherit, Skills...>>...>;
+		using _Inherit = inherit;
+	};
+
+	struct wrapper_controller {
+		template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+		constexpr static const T& unwrapper(const wrapper<T, Tag, Inherit, Skills...>& w) noexcept {
+			return w._v;
+		}
+		template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+		constexpr static T& unwrapper(wrapper<T, Tag, Inherit, Skills...>& w) noexcept {
+			return w._v;
+		}
+		template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+		constexpr static T&& unwrapper(wrapper<T, Tag, Inherit, Skills...>&& w) noexcept {
+			return std::move(w._v);
+		}
+	};
+
+
+	template<typename T>
+	struct wrapper_type;
+
+	template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+	struct wrapper_type<wrapper<T, Tag, Inherit, Skills...>> {
+		using type = T;
+	};
+
+
+	template<typename T>
+	struct wrapper_tag;
+
+	template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+	struct wrapper_tag<wrapper<T, Tag, Inherit, Skills...>> {
+		using type = Tag;
+	};
+
+
+	template<typename T>
+	struct wrapper_inherit;
+
+	template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+	struct wrapper_inherit<wrapper<T, Tag, Inherit, Skills...>> {
+		using type = Inherit;
+	};
+
+
+	template<typename T>
+	struct wrapper_skills;
+
+	template<typename T, typename Tag, typename Inherit, template<typename> class... Skills>
+	struct wrapper_skills<wrapper<T, Tag, Inherit, Skills...>> {
+		using type = std::tuple<Skills<wrapper<T, Tag, Inherit, Skills...>>...>;
 	};
 }

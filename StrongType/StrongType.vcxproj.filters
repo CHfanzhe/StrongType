@@ -26,10 +26,13 @@
     <ClInclude Include="include\StrongType\wrapper.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\StrongType\inherit_all.hpp">
+    <ClInclude Include="include\StrongType\inherit.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\StrongType\inherit.hpp">
+    <ClInclude Include="include\StrongType\modifier.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StrongType\modifier_convert.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
