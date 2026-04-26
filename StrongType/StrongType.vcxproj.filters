@@ -32,8 +32,5 @@
     <ClInclude Include="include\StrongType\inherit.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\StrongType\store.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
