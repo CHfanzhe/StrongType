@@ -32,8 +32,5 @@
     <ClInclude Include="include\StrongType\modifier.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\StrongType\modifier_convert.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

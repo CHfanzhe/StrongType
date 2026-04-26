@@ -138,7 +138,6 @@
   <ItemGroup>
     <ClInclude Include="include\StrongType\inherit.hpp" />
     <ClInclude Include="include\StrongType\modifier.hpp" />
-    <ClInclude Include="include\StrongType\modifier_convert.hpp" />
     <ClInclude Include="include\StrongType\StrongType.hpp" />
     <ClInclude Include="include\StrongType\wrapper.hpp" />
   </ItemGroup>
