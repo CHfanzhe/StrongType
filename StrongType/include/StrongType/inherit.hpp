@@ -9,15 +9,15 @@ namespace StrongType::inherit {
 		friend struct inherit_cast;
 		T data;
 	public:
-		inherit_store() noexcept = default;
-		inherit_store(const T& value) noexcept : data(value) {}
-		inherit_store(T&& value) noexcept : data(std::move(value)) {}
+		constexpr inherit_store() noexcept = default;
+		constexpr explicit inherit_store(const T& value) noexcept : data(value) {}
+		constexpr explicit inherit_store(T&& value) noexcept : data(std::move(value)) {}
 
-		inherit_store& operator=(const T& other) noexcept {
+		constexpr inherit_store& operator=(const T& other) noexcept {
 			data = other;
 			return *this;
 		}
-		inherit_store& operator=(T&& other) noexcept {
+		constexpr inherit_store& operator=(T&& other) noexcept {
 			data = std::move(other);
 			return *this;
 		}

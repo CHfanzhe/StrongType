@@ -2,17 +2,17 @@
 #include <type_traits>
 #include "wrapper.hpp"
 namespace StrongType::modifier {
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct addable {
         constexpr friend T operator+(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) + StrongType::wrapper_operator::value(rhs));
         }
 
-        constexpr friend T operator+(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T operator+(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) + rhs);
         }
 
-        constexpr friend T operator+(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend T operator+(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return T(lhs + StrongType::wrapper_operator::value(rhs));
         }
 
@@ -21,13 +21,13 @@ namespace StrongType::modifier {
             return lhs;
         }
 
-        constexpr friend T& operator+=(T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T& operator+=(T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             StrongType::wrapper_operator::value(lhs) += rhs;
             return lhs;
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct subtractable {
         constexpr friend T operator-(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) - StrongType::wrapper_operator::value(rhs));
@@ -39,17 +39,17 @@ namespace StrongType::modifier {
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct multiplicable {
         constexpr friend T operator*(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) * StrongType::wrapper_operator::value(rhs));
         }
 
-        constexpr friend T operator*(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T operator*(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) * rhs);
         }
 
-        constexpr friend T operator*(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend T operator*(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return T(lhs * StrongType::wrapper_operator::value(rhs));
         }
 
@@ -58,13 +58,13 @@ namespace StrongType::modifier {
             return lhs;
         }
 
-        constexpr friend T& operator*=(T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T& operator*=(T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             StrongType::wrapper_operator::value(lhs) *= rhs;
             return lhs;
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct dividable {
         constexpr friend T operator/(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) / StrongType::wrapper_operator::value(rhs));
@@ -76,7 +76,7 @@ namespace StrongType::modifier {
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct modulable {
         constexpr friend T operator%(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) % StrongType::wrapper_operator::value(rhs));
@@ -88,7 +88,7 @@ namespace StrongType::modifier {
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct incrementable {
         constexpr friend T& operator++(T& t) noexcept {
             ++StrongType::wrapper_operator::value(t);
@@ -102,7 +102,7 @@ namespace StrongType::modifier {
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct decrementable {
         constexpr friend T& operator--(T& t) noexcept {
             --StrongType::wrapper_operator::value(t);
@@ -116,17 +116,17 @@ namespace StrongType::modifier {
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct equality_comparable {
         constexpr friend bool operator==(const T& lhs, const T& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) == StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator==(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator==(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) == rhs;
         }
 
-        constexpr friend bool operator==(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator==(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs == StrongType::wrapper_operator::value(rhs);
         }
 
@@ -134,26 +134,26 @@ namespace StrongType::modifier {
             return StrongType::wrapper_operator::value(lhs) != StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator!=(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator!=(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) != rhs;
         }
 
-        constexpr friend bool operator!=(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator!=(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs != StrongType::wrapper_operator::value(rhs);
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct orderable {
         constexpr friend bool operator<(const T& lhs, const T& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) < StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator<(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator<(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) < rhs;
         }
 
-        constexpr friend bool operator<(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator<(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs < StrongType::wrapper_operator::value(rhs);
         }
 
@@ -161,11 +161,11 @@ namespace StrongType::modifier {
             return StrongType::wrapper_operator::value(lhs) <= StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator<=(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator<=(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) <= rhs;
         }
 
-        constexpr friend bool operator<=(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator<=(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs <= StrongType::wrapper_operator::value(rhs);
         }
 
@@ -173,11 +173,11 @@ namespace StrongType::modifier {
             return StrongType::wrapper_operator::value(lhs) > StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator>(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator>(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) > rhs;
         }
 
-        constexpr friend bool operator>(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator>(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs > StrongType::wrapper_operator::value(rhs);
         }
 
@@ -185,16 +185,16 @@ namespace StrongType::modifier {
             return StrongType::wrapper_operator::value(lhs) >= StrongType::wrapper_operator::value(rhs);
         }
 
-        constexpr friend bool operator>=(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend bool operator>=(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return StrongType::wrapper_operator::value(lhs) >= rhs;
         }
 
-        constexpr friend bool operator>=(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend bool operator>=(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return lhs >= StrongType::wrapper_operator::value(rhs);
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct arithmetic : addable<T>,
         subtractable<T>,
         multiplicable<T>,
@@ -205,17 +205,17 @@ namespace StrongType::modifier {
         equality_comparable<T>,
         orderable<T> {};
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct bitwise_orable {
         constexpr friend T operator|(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) | StrongType::wrapper_operator::value(rhs));
         }
 
-        constexpr friend T operator|(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T operator|(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) | rhs);
         }
 
-        constexpr friend T operator|(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend T operator|(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return T(lhs | StrongType::wrapper_operator::value(rhs));
         }
 
@@ -224,23 +224,23 @@ namespace StrongType::modifier {
             return lhs;
         }
 
-        constexpr friend T& operator|=(T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T& operator|=(T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             StrongType::wrapper_operator::value(lhs) |= rhs;
             return lhs;
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct bitwise_andable {
         constexpr friend T operator&(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) & StrongType::wrapper_operator::value(rhs));
         }
 
-        constexpr friend T operator&(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T operator&(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) & rhs);
         }
 
-        constexpr friend T operator&(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend T operator&(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return T(lhs & StrongType::wrapper_operator::value(rhs));
         }
 
@@ -249,23 +249,23 @@ namespace StrongType::modifier {
             return lhs;
         }
 
-        constexpr friend T& operator&=(T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T& operator&=(T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             StrongType::wrapper_operator::value(lhs) &= rhs;
             return lhs;
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct bitwise_xorable {
         constexpr friend T operator^(const T& lhs, const T& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) ^ StrongType::wrapper_operator::value(rhs));
         }
 
-        constexpr friend T operator^(const T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T operator^(const T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             return T(StrongType::wrapper_operator::value(lhs) ^ rhs);
         }
 
-        constexpr friend T operator^(const typename StrongType::wrapper_type<T>::type& lhs, const T& rhs) noexcept {
+        constexpr friend T operator^(const typename StrongType::wrapper_basictype<T>::type& lhs, const T& rhs) noexcept {
             return T(lhs ^ StrongType::wrapper_operator::value(rhs));
         }
 
@@ -274,20 +274,20 @@ namespace StrongType::modifier {
             return lhs;
         }
 
-        constexpr friend T& operator^=(T& lhs, const typename StrongType::wrapper_type<T>::type& rhs) noexcept {
+        constexpr friend T& operator^=(T& lhs, const typename StrongType::wrapper_basictype<T>::type& rhs) noexcept {
             StrongType::wrapper_operator::value(lhs) ^= rhs;
             return lhs;
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct bitwise_negatable {
         constexpr friend T operator~(const T& lhs) noexcept {
             return T(~StrongType::wrapper_operator::value(lhs));
         }
     };
 
-    template<typename T, typename = std::enable_if_t<StrongType::is_wrapper_v<T>>>
+    template<typename T>
     struct bitwise_manipulable : bitwise_orable<T>,
         bitwise_andable<T>,
         bitwise_xorable<T>,
