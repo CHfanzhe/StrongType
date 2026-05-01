@@ -22,7 +22,7 @@ This library provides two wrappers: `wrapper` and `wrapper_auto` (located under 
 - _Skills
 
 	- `_Skills` is the list of skills for the wrapper. The dedicated skill set provided by this library for `wrapper` is located under the namespace `StrongType::modifier`.
-	 You can also use the macro provided by this library: ***StrongType_MakeSkill(TYPE, NAME), which is equivalent to template<typename> NAME = TYPE***
+	 You can also use the macro provided by this library: ***StrongType_MakeSkill(TYPE, NAME), which is equivalent to template\<typename\> using NAME = TYPE***
 	 This allows certain types to be used as skills. `wrapper` inherits from the skills but does not use `using` for additional inheritance.
 
 ## Usage
