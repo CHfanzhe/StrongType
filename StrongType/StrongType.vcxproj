@@ -137,9 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\StrongType\inherit.hpp" />
-    <ClInclude Include="include\StrongType\modifier.hpp" />
     <ClInclude Include="include\StrongType\StrongType.hpp" />
     <ClInclude Include="include\StrongType\wrapper.hpp" />
+    <ClInclude Include="Trash\inherit.hpp" />
+    <ClInclude Include="Trash\modifier.hpp" />
+    <ClInclude Include="Trash\StrongType.hpp" />
+    <ClInclude Include="Trash\wrapper.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

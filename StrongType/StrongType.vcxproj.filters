@@ -20,6 +20,18 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Trash\StrongType.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Trash\wrapper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Trash\inherit.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Trash\modifier.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\StrongType\StrongType.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -27,9 +39,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\StrongType\inherit.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\StrongType\modifier.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
