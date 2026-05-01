@@ -8,8 +8,6 @@
 namespace StrongType {
 	template<typename T>	struct auto_inherit { using type = std::conditional_t<std::is_class_v<T>, inherit::inherit_all<T>, inherit::inherit_store<T>>; };
 	template<typename T>	using auto_inherit_t = auto_inherit<T>::type;
-	template<typename T>	struct to_skill {using type = auto_inherit_t<T>;};
-	template<typename T, typename U>	using to_skill_t = to_skill<T>::type;
 
 	template<typename T>
 	struct wrapper_info;
