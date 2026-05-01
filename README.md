@@ -24,7 +24,7 @@ wrapper 需求3个模板 ***typename _Inherit_T, typename _Tag, template<typenam
 - _Skills
 
 	- _Skills 是wrapper的技能列表 本库提供的wrapper的专用技能表位于命名空间 *StrongType::modifier* 下,
-	 并且您还可以使用本库提供的宏***StrongType_MakeSkill(TYPE,NAME) 其等价与 template<typename> NAME = TYPE***
+	 并且您还可以使用本库提供的宏***StrongType_MakeSkill(TYPE,NAME) 其等价与 template\<typename\> using NAME = TYPE***
 	 这个能使某些类型支持被当作技能使用. wrapper 会继承技能 但是不会使用using再额外继承.
 
 ## 使用
