@@ -30,7 +30,7 @@ This library provides two wrappers: `wrapper` and `wrapper_auto` (located under 
 ```cpp
 	using addable_int = StrongType::wrapper_auto<int, struct MyTag, StrongType::modifier::addable>;
 	
-	addable_int a(778);
+	addable_int a(1234567890);
 ```
 
 # Afterword

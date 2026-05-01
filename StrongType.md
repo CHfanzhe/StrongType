@@ -1,6 +1,6 @@
 ### CHFazhe's StrongType: CHFazhe的强类型实现 🤔
 
-[ENGLISH](https://www.example.com)
+[ENGLISH](https://github.com/CHfanzhe/StrongType/blob/master/StrongType%20_ENGLISH.md)
 
 本库提供了 两个包装器 wrapper wrapper_auto (位于StrongType::命名空间下) wrapper_auto 是在wrapper的基础上添加了自动包装使其更接近于其他的强类型库. 🤔
 
@@ -32,7 +32,7 @@ wrapper 需求3个模板 ***typename _Inherit_T, typename _Tag, template<typenam
 ```cpp
 	using addable_int = StrongType::wrapper_auto<int, struct MyTag, StrongType::modifier::addable>;
 	
-	addable_int a(778);
+	addable_int a(1234567890);
 ```
 
 # 后记
