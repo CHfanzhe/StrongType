@@ -40,7 +40,7 @@ namespace StrongType {
 
 	struct wrapper_operator {
 		template<typename T, typename = std::enable_if_t<is_wrapper_v<T>>>
-		inline static constexpr auto value_const(const T& obj) noexcept -> const typename wrapper_info<T>::basictype& {
+		inline static constexpr auto value(const T& obj) noexcept -> const typename wrapper_info<T>::basictype& {
 			return inherit::inherit_cast::reference_const(obj);
 		}
 		template<typename T, typename = std::enable_if_t<is_wrapper_v<T>>>
