@@ -2,21 +2,54 @@
 #include <type_traits>
 #include <utility>
 #include "inherit.hpp"
+
+#define StrongType_MakeSkill(TYPE,NAME)	template<typename> using NAME = TYPE
+
 namespace StrongType {
+	template<typename T>	struct auto_inherit { using type = std::conditional_t<std::is_class_v<T>, inherit::inherit_all<T>, inherit::inherit_store<T>>; };
+	template<typename T>	using auto_inherit_t = auto_inherit<T>::type;
+	template<typename T>	struct to_skill {using type = auto_inherit_t<T>;};
+	template<typename T, typename U>	using to_skill_t = to_skill<T>::type;
+
 	template<typename T>
 	struct wrapper_info;
 
 	template<typename _Inherit_T, typename _Tag, template<typename> typename... _Skills>
 	class wrapper : public _Inherit_T, public _Skills<wrapper<_Inherit_T, _Tag, _Skills...>>... {
-		static_assert(std::is_class_v<_Inherit_T>, "[wrapper] _Inherit_T must be a class type");
+		static_assert(inherit::is_inherit_v<_Inherit_T>, "[wrapper] _Inherit_T only supports inherit::inherit...");
+		friend struct wrapper_operator;
 	public:
 		using _Inherit_T::_Inherit_T;
 	};
 	
 	template<typename _Inherit_T, typename _Tag, template<typename> typename... _Skills>
+	using wrapper_auto = wrapper<auto_inherit_t<_Inherit_T>, _Tag, _Skills...>;
+
+	template<typename _Inherit_T, typename _Tag, template<typename> typename... _Skills>
 	struct wrapper_info<wrapper<_Inherit_T, _Tag, _Skills...>> {
-		using Type = _Inherit_T;
-		using Tag = _Tag;
-		using Skills = std::tuple<_Skills...>;
+		using type = _Inherit_T;
+		using tag = _Tag;
+		using skills = std::tuple<_Skills...>;
+		using basictype = inherit::basictype_inherit_t<_Inherit_T>;
+	};
+	
+	template<typename T>	struct is_wrapper : std::false_type {};
+	template<typename _Inherit_T, typename _Tag, template<typename> typename... _Skills>
+											struct is_wrapper<wrapper<_Inherit_T, _Tag, _Skills...>> : std::true_type {};
+	template<typename T>	inline constexpr bool is_wrapper_v = is_wrapper<T>::value;
+
+	struct wrapper_operator {
+		template<typename T, typename = std::enable_if_t<is_wrapper_v<T>>>
+		inline static constexpr auto value_const(const T& obj) noexcept -> const typename wrapper_info<T>::basictype& {
+			return inherit::inherit_cast::reference_const(obj);
+		}
+		template<typename T, typename = std::enable_if_t<is_wrapper_v<T>>>
+		inline static constexpr auto value(T& obj) noexcept -> typename wrapper_info<T>::basictype& {
+			return inherit::inherit_cast::reference(obj);
+		}
+		template<typename T, typename = std::enable_if_t<is_wrapper_v<T>>>
+		inline static constexpr auto move(T&& obj) noexcept -> typename wrapper_info<T>::basictype&& {
+			return inherit::inherit_cast::move(std::forward<T>(obj));
+		}
 	};
 }
